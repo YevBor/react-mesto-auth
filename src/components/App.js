@@ -1,34 +1,18 @@
 // import logo from './logo.svg';
 // import './App.css';
+import Header from './Header.js';
+import Main from './Main.js';
+import Footer from './Footer.js';
 
 function App() {
   return (
   <>
   <div className="body">
     <title>Mesto</title>
-    <header className="header">
-      <img className="header__logo" src="<%=require('./images/Vector.svg')%>" alt="лого" />
-    </header>
-    <main>
-      <section className="profile">   
-        <div className="profile__items">
-          <img className="avatar avatar_overlay" src="<%=require('./images/kusto.jpg')%>" alt="аватар" />
-          <div className="profile__item">
-            <div className="profile__title-inline">
-              <h1 className="profile__title">Жак-Ив Кусто</h1>
-              <button type="button" className="profile__edit-button pointer-opacity" aria-label="кнопка редактированья" />
-            </div>
-            <p className="profile__subtitle">Исследователь океана</p>   
-          </div>           
-        </div>
-        <button aria-label="добавить" type="button" className="profile__add-button pointer-opacity" />
-      </section>
-      <section className="cards">
-      </section>
-    </main>
-    <footer className="footer">
-      <p className="footer__author">© 2020. Mesto Russia</p>
-    </footer>
+    <Header />
+    <Main />
+    <Footer />
+    
     <div className="popup popup_type_edit popup_overlay" noValidate>
       <form name="edit_form" className="popup__container popup__container-edit">
         <button aria-label="Close" type="button" className="popup__close-image pointer-opacity" />
