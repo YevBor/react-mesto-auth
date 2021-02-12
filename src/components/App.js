@@ -32,6 +32,13 @@ function App() {
 
   }
 
+  function closeAllPopups() {
+    setEditAvatarPopupOpen(false)
+    setEditProfilePopupOpen(false)
+    setAddPlacePopupOpen(false)
+    setSelectedCard({})
+  }
+
 
   return (
   <>
@@ -45,7 +52,7 @@ function App() {
     <Footer />
     <PopupWithForm
         isOpen={isEditAvatarPopupOpen}
-        // onClose={closeAllPopups}
+        onClose={closeAllPopups}
         title="Обновить аватар"
         name="popup-avatar"
         submitText="Сохранить"
@@ -57,6 +64,7 @@ function App() {
       
       <PopupWithForm
         isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}
         title="Новое место"
         name="popup-addcard"
         submitText="Сохранить"
@@ -68,6 +76,7 @@ function App() {
 
       <PopupWithForm
         isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
         title="Редактировать профиль"
         name="popup-profile"
         submitText="Сохранить"
