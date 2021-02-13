@@ -5,6 +5,7 @@ import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
 import PopupWithForm from './PopupWithForm.js';
+import ImagePopup from './ImagePopup.js';
 
 
 
@@ -32,6 +33,10 @@ function App() {
 
   }
 
+  function handleCardClick(card) {
+    setSelectedCard(card)
+  }
+
   function closeAllPopups() {
     setEditAvatarPopupOpen(false)
     setEditProfilePopupOpen(false)
@@ -48,8 +53,10 @@ function App() {
     <Main onEditProfile={handleEditProfileClick} 
     onAddPlace={handleAddPlaceClick}
     onEditAvatar={handleEditAvatarClick}
+    onCardClick={handleCardClick}
      />
     <Footer />
+    <ImagePopup onClose={closeAllPopups} card={selectedCard} />
     <PopupWithForm
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}

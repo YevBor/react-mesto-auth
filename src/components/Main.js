@@ -1,21 +1,15 @@
 import React from 'react';
-import avatar from '../images/kusto.jpg';
 import {api} from '../utils/Api.js';
+import Card from './Card.js';
 
 
 
 function Main(props){
-    const [userName, setUserName] = React.useState('')
-    const [userDescription, setUserDescription] = React.useState('')
-    const [userAvatar, setUserAvatar] = React.useState('')
-    console.log(userName);
+    const [userName, setUserName] = React.useState('');
+    const [userDescription, setUserDescription] = React.useState('');
+    const [userAvatar, setUserAvatar] = React.useState('');
+    const [cards, setCards] = React.useState([]);
 
-    // function showAvatarEditIcon() {
-    //     setAvatarEditIcon(true)
-    //   }
-    //   function hideAvatarEditIcon() {
-    //     setAvatarEditIcon(false)
-    //   }
       React.useEffect(() => {
         Promise.all([api.getProfileData(), api.getInitialCards()])
           .then((values) => {
@@ -24,7 +18,7 @@ function Main(props){
             setUserName(name)
             setUserDescription(about)
             setUserAvatar(avatar)
-            // setCards(initialCards)
+            setCards(initialCards)
           })
           .catch((err) => {
             console.log(err)
@@ -47,6 +41,9 @@ function Main(props){
         <button onClick={props.onAddPlace} aria-label="добавить" type="button" className="profile__add-button pointer-opacity" />
       </section>
       <section className="cards">
+        {cards.map((item) => (
+                <Card card={item} key={item._id} onCardClick={props.onCardClick} />
+            ))}
       </section>
     </main>
     );
