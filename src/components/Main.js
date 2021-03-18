@@ -2,27 +2,26 @@ import React from 'react';
 import api from '../utils/Api.js';
 import Card from './Card.js';
 import  CurrentUserContext  from '../contexts/CurrentUserContext';
-console.log(CurrentUserContext)
 
 
 function Main(props){
 
-    const [cards, setCards] = React.useState([]);
+    // const [cards, setCards] = React.useState([]);
     
-    React.useEffect(() => {
-      Promise.all([api.getProfileData(), api.getInitialCards()])
-      .then((values) => {
-        const [userInfo, initialCards] = values
-        setCards(initialCards)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-    }, [])
+    // React.useEffect(() => {
+    //   Promise.all([api.getInitialCards()])
+    //   .then((values) => {
+    //     const [initialCards] = values
+    //     setCards(initialCards)
+    //   })
+    //   .catch((err) => {
+    //     console.log(err)
+    //   })
+    // }, [])
     
     
     const currentUser = React.useContext(CurrentUserContext);
-    console.log(currentUser.name)
+    console.log(currentUser);
 
     return(
     <main>
@@ -40,7 +39,7 @@ function Main(props){
         <button onClick={props.onAddPlace} aria-label="добавить" type="button" className="profile__add-button pointer-opacity" />
       </section>
       <section className="cards">
-        {cards.map((item) => (
+        {props.cards.map((item) => (
                 <Card card={item} key={item._id} onCardClick={props.onCardClick} />
             ))}
       </section>
