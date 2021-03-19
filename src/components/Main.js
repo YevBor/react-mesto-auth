@@ -5,23 +5,60 @@ import  CurrentUserContext  from '../contexts/CurrentUserContext';
 
 
 function Main(props){
-
-    // const [cards, setCards] = React.useState([]);
-    
-    // React.useEffect(() => {
-    //   Promise.all([api.getInitialCards()])
-    //   .then((values) => {
-    //     const [initialCards] = values
-    //     setCards(initialCards)
-    //   })
-    //   .catch((err) => {
-    //     console.log(err)
-    //   })
-    // }, [])
-    
     
     const currentUser = React.useContext(CurrentUserContext);
-    console.log(currentUser);
+
+
+    const [cards, setCards] = React.useState([]);
+    
+    React.useEffect(() => {
+      Promise.all([api.getInitialCards()])
+      .then((values) => {
+        const [initialCards] = values
+        setCards(initialCards)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }, [])
+
+    // function handleCardLike(card) {
+    //   // Снова проверяем, есть ли уже лайк на этой карточке
+    //   const isLiked = card.likes.some(i => i._id === currentUser._id);
+      
+    //   // Отправляем запрос в API и получаем обновлённые данные карточки
+    //   api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+    //       setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+    //   });
+    // }
+
+    function handleCardLike(card) {
+      const isLiked = card.likes.some((i) => i._id === currentUser._id)
+  
+      function updateCards(newCard) {
+        const newCards = cards.map((c) => (c._id === card._id ? newCard : c))
+        setCards(newCards)
+      }
+  
+      if (isLiked) {
+        api
+          .removeLike(card._id)
+          .then((newCard) => {
+            updateCards(newCard)
+          })
+          .catch(err => console.log(err))
+      } else {
+        api
+          .addLike(card._id)
+          .then((newCard) => {
+            updateCards(newCard)
+          })
+          .catch(err => console.log(err))
+      }
+    }
+  
+
+    
 
     return(
     <main>
@@ -39,8 +76,8 @@ function Main(props){
         <button onClick={props.onAddPlace} aria-label="добавить" type="button" className="profile__add-button pointer-opacity" />
       </section>
       <section className="cards">
-        {props.cards.map((item) => (
-                <Card card={item} key={item._id} onCardClick={props.onCardClick} />
+        {cards.map((item) => (
+                <Card card={item} key={item._id} onCardClick={props.onCardClick} onCardLike={handleCardLike}/>
             ))}
       </section>
     </main>

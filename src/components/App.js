@@ -33,6 +33,9 @@ function App() {
     .catch(err => console.log(err))
   }, []);
 
+
+
+
  
   function handleEditAvatarClick() {
     // document.querySelector('.popup_avatar').classList.add('popup_opened');
@@ -62,18 +65,22 @@ function App() {
     setAddPlacePopupOpen(false)
     setSelectedCard({})
   }
-  const [cards, setCards] = React.useState([]);
+  // const [cards, setCards] = React.useState([]);
     
-  React.useEffect(() => {
-    Promise.all([api.getInitialCards()])
-    .then((values) => {
-      const [initialCards] = values
-      setCards(initialCards)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  }, [])
+  // React.useEffect(() => {
+  //   Promise.all([api.getInitialCards()])
+  //   .then((values) => {
+  //     const [initialCards] = values
+  //     setCards(initialCards)
+  //   })
+  //   .catch((err) => {
+  //     console.log(err)
+  //   })
+  // }, [])
+
+  
+
+
 
 
   return (
@@ -85,7 +92,7 @@ function App() {
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditAvatarClick}
         onCardClick={handleCardClick}
-        cards={cards}
+        // cards={cards}
         />
         <Footer />
         <ImagePopup onClose={closeAllPopups} card={selectedCard} />
