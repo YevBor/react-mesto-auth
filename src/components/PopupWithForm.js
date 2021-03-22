@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-function PopupWithForm({isOpen, onClose, name, title, children, submitText}) {
+function PopupWithForm({isOpen, onClose, name, title, children, submitText, onSubmit}) {
     function handleOverlayClose(evt) {
         if (evt.target.classList.contains('popup')) {onClose()}
       }
@@ -9,7 +9,7 @@ function PopupWithForm({isOpen, onClose, name, title, children, submitText}) {
     return(
     <div className={`popup popup_overlay ${isOpen ? 'popup_opened' : ''}`} id={name} onClick={handleOverlayClose}>
        
-          <form className="popup__container" name={name} noValidate>
+          <form className="popup__container" name={name} noValidate onSubmit={onSubmit}>
             <button
                 type="button"
                 className="popup__close-image pointer-opacity"

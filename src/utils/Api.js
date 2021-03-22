@@ -41,8 +41,8 @@ class Api{
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                name: values[0],
-                about: values[1]
+                name: values.name,
+                about: values.about,
             })
         })
         .then(response => {

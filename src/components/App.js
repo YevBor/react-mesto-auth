@@ -8,6 +8,7 @@ import PopupWithForm from './PopupWithForm.js';
 import ImagePopup from './ImagePopup.js';
 import api from '../utils/Api.js';
 import  CurrentUserContext  from '../contexts/CurrentUserContext';
+import EditProfilePopup from '../components/popups/EditProfilePopup.js';
 
 
 
@@ -40,7 +41,6 @@ function App() {
   function handleEditAvatarClick() {
     // document.querySelector('.popup_avatar').classList.add('popup_opened');
     setEditAvatarPopupOpen(true);
-    console.log('hi');
   }
   
   function handleEditProfileClick(){
@@ -59,30 +59,24 @@ function App() {
     setSelectedCard(card)
   }
 
+  function handleUpdateUser(user) {
+    console.log(user)
+    api.editUserProfile(user)
+      .then((user) => {
+        setCurrentUser(user)
+      })
+      .catch((err) => console.log(err))
+      .finally(() => closeAllPopups());
+}
+
   function closeAllPopups() {
     setEditAvatarPopupOpen(false)
     setEditProfilePopupOpen(false)
     setAddPlacePopupOpen(false)
     setSelectedCard({})
   }
-  // const [cards, setCards] = React.useState([]);
-    
-  // React.useEffect(() => {
-  //   Promise.all([api.getInitialCards()])
-  //   .then((values) => {
-  //     const [initialCards] = values
-  //     setCards(initialCards)
-  //   })
-  //   .catch((err) => {
-  //     console.log(err)
-  //   })
-  // }, [])
-
   
-
-
-
-
+  
   return (
     <div className="body">
       <CurrentUserContext.Provider value={currentUser}>
@@ -96,6 +90,10 @@ function App() {
         />
         <Footer />
         <ImagePopup onClose={closeAllPopups} card={selectedCard} />
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} 
+        onClose={closeAllPopups} 
+        onUpdateUser={handleUpdateUser}
+        /> 
         <PopupWithForm
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
@@ -118,17 +116,7 @@ function App() {
             <span id="new-card-error" className="popup__error" />
         </PopupWithForm>
 
-         <PopupWithForm
-            isOpen={isEditProfilePopupOpen}
-            onClose={closeAllPopups}
-            title="Редактировать профиль"
-            name="popup-profile"
-            submitText="Сохранить"
-          ><input required minLength={2} maxLength={40} type="text" name="profile_name" placeholder="Жак-Ив Кусто" className="popup__text-row popup__input-name" id="edit-card-name" />
-            <span id="edit-card-name-error" className="popup__error" />
-            <input required minLength={2} maxLength={200} type="text" name="profile_job" placeholder="Исследователь океана" className="popup__text-row popup__input-profession" id="edit-card-job" />
-            <span id="edit-card-job-error" className="popup__error" />
-          </PopupWithForm>
+
       </CurrentUserContext.Provider>
     </div>
 
@@ -136,3 +124,17 @@ function App() {
 }
 
 export default App;
+
+
+
+{/* <PopupWithForm
+isOpen={isEditProfilePopupOpen}
+onClose={closeAllPopups}
+title="Редактировать профиль"
+name="popup-profile"
+submitText="Сохранить"
+><input required minLength={2} maxLength={40} type="text" name="profile_name" placeholder="Жак-Ив Кусто" className="popup__text-row popup__input-name" id="edit-card-name" />
+<span id="edit-card-name-error" className="popup__error" />
+<input required minLength={2} maxLength={200} type="text" name="profile_job" placeholder="Исследователь океана" className="popup__text-row popup__input-profession" id="edit-card-job" />
+<span id="edit-card-job-error" className="popup__error" />
+</PopupWithForm> */}
