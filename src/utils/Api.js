@@ -61,8 +61,8 @@ class Api{
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                name: values[0],
-                link : values[1]
+                name: values.name,
+                link: values.link,
             })
         })
         .then(response => {
@@ -128,7 +128,7 @@ class Api{
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                avatar: data,
+                avatar: data.avatar,
             }),
         })
         .then(response => {

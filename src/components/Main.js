@@ -9,60 +9,60 @@ function Main(props){
     const currentUser = React.useContext(CurrentUserContext);
 
 
-    const [cards, setCards] = React.useState([]);
+  //   const [cards, setCards] = React.useState([]);
     
-    React.useEffect(() => {
-      Promise.all([api.getInitialCards()])
-      .then((values) => {
-        const [initialCards] = values
-        setCards(initialCards)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-    }, [])
+  //   React.useEffect(() => {
+  //     Promise.all([api.getInitialCards()])
+  //     .then((values) => {
+  //       const [initialCards] = values
+  //       setCards(initialCards)
+  //     })
+  //     .catch((err) => {
+  //       console.log(err)
+  //     })
+  //   }, [])
 
-   function handleCardDelete(card){
-    const isOwn = card.owner._id === currentUser._id;
-    if (isOwn) {
-      api.removeCard(card._id)
-      .then(() => {
-        const newCards = cards.filter(c => 
-          c._id !== card._id);
-          setCards(newCards)
-      })
-      .catch((err) => {
-        console.log(err)
-      }) 
-    }
+  //  function handleCardDelete(card){
+  //   const isOwn = card.owner._id === currentUser._id;
+  //   if (isOwn) {
+  //     api.removeCard(card._id)
+  //     .then(() => {
+  //       const newCards = cards.filter(c => 
+  //         c._id !== card._id);
+  //         setCards(newCards)
+  //     })
+  //     .catch((err) => {
+  //       console.log(err)
+  //     }) 
+  //   }
 
 
-   }
+  //  }
 
-    function handleCardLike(card) {
-      const isLiked = card.likes.some((i) => i._id === currentUser._id)
+  //   function handleCardLike(card) {
+  //     const isLiked = card.likes.some((i) => i._id === currentUser._id)
   
-      function updateCards(newCard) {
-        const newCards = cards.map((c) => (c._id === card._id ? newCard : c))
-        setCards(newCards)
-      }
+  //     function updateCards(newCard) {
+  //       const newCards = cards.map((c) => (c._id === card._id ? newCard : c))
+  //       setCards(newCards)
+  //     }
   
-      if (isLiked) {
-        api
-          .removeLike(card._id)
-          .then((newCard) => {
-            updateCards(newCard)
-          })
-          .catch(err => console.log(err))
-      } else {
-        api
-          .addLike(card._id)
-          .then((newCard) => {
-            updateCards(newCard)
-          })
-          .catch(err => console.log(err))
-      }
-    }
+  //     if (isLiked) {
+  //       api
+  //         .removeLike(card._id)
+  //         .then((newCard) => {
+  //           updateCards(newCard)
+  //         })
+  //         .catch(err => console.log(err))
+  //     } else {
+  //       api
+  //         .addLike(card._id)
+  //         .then((newCard) => {
+  //           updateCards(newCard)
+  //         })
+  //         .catch(err => console.log(err))
+  //     }
+  //   }
   
 
     
@@ -83,8 +83,8 @@ function Main(props){
         <button onClick={props.onAddPlace} aria-label="добавить" type="button" className="profile__add-button pointer-opacity" />
       </section>
       <section className="cards">
-        {cards.map((item) => (
-                <Card card={item} key={item._id} onCardClick={props.onCardClick} onCardLike={handleCardLike} onCardDelete={handleCardDelete}/>
+        {props.cards.map((item) => (
+                <Card card={item} key={item._id} onCardClick={props.onCardClick} onCardLike={props.onCardLike} onCardDelete={props.onCardDelete}/>
             ))}
       </section>
     </main>
