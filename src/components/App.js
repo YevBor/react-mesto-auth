@@ -3,9 +3,9 @@ import React from 'react';
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
-import PopupWithForm from './PopupWithForm.js';
-import ImagePopup from './ImagePopup.js';
-import api from '../utils/Api.js';
+import PopupWithForm from './popups/PopupWithForm.js';
+import ImagePopup from './popups/ImagePopup.js';
+import api from '../utils/api.js';
 import CurrentUserContext  from '../contexts/CurrentUserContext';
 import EditProfilePopup from '../components/popups/EditProfilePopup.js';
 import EditAvatarPopup from '../components/popups/EditAvatarPopup.js';
@@ -40,18 +40,15 @@ function App() {
 
  
   function handleEditAvatarClick() {
-    // document.querySelector('.popup_avatar').classList.add('popup_opened');
     setEditAvatarPopupOpen(true);
   }
   
   function handleEditProfileClick(){
-    // document.querySelector('.popup_type_edit').classList.add('popup_opened');
     setEditProfilePopupOpen(true);
     
   }
   
   function handleAddPlaceClick(){
-    // document.querySelector('.popup_type_new-card').classList.add('popup_opened');
     setAddPlacePopupOpen(true);
 
   }
@@ -96,6 +93,20 @@ function handleUpdateAvatar(avatar){
     .catch((err) => {
       console.log(err)
     })
+  }, [])
+
+  React.useEffect(() => {
+    const onKeypress = (evt) => {
+      if (evt.key === 'Escape') {
+        closeAllPopups()
+      }
+    }
+
+    document.addEventListener('keydown', onKeypress)
+
+    return () => {
+      document.removeEventListener('keydown', onKeypress)
+    }
   }, [])
 
  function handleCardDelete(card){
