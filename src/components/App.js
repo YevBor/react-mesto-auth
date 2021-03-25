@@ -3,13 +3,13 @@ import React from 'react';
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
-import PopupWithForm from './popups/PopupWithForm.js';
-import ImagePopup from './popups/ImagePopup.js';
+import PopupWithForm from './PopupWithForm.js';
+import ImagePopup from './ImagePopup.js';
 import api from '../utils/api.js';
 import CurrentUserContext  from '../contexts/CurrentUserContext';
-import EditProfilePopup from '../components/popups/EditProfilePopup.js';
-import EditAvatarPopup from '../components/popups/EditAvatarPopup.js';
-import AddPlacePopup from '../components/popups/AddPlacePopup.js';
+import EditProfilePopup from '../components/EditProfilePopup.js';
+import EditAvatarPopup from './EditAvatarPopup.js';
+import AddPlacePopup from './AddPlacePopup.js';
 
 
 
