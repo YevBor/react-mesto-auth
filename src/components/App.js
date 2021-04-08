@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Route, Redirect, Switch, useHistory, Link } from "react-router-dom";
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
@@ -10,6 +11,7 @@ import CurrentUserContext  from '../contexts/CurrentUserContext';
 import EditProfilePopup from '../components/EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
 import AddPlacePopup from './AddPlacePopup.js';
+import Login from './Login';
 
 
 
@@ -24,6 +26,7 @@ function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
+  const [loggedIn, setLoggedIn] = React.useState(false)
 
 
 
@@ -162,7 +165,17 @@ function handleUpdateAvatar(avatar){
   return (
     <div className="body">
       <CurrentUserContext.Provider value={currentUser}>
-        <title>Mesto</title>
+        <Switch>
+          <Route exact path="/sign-up"></Route>
+          <Route exact path="/sign-in">
+            <Login 
+            // onLogin={handleLogin}
+            />
+          </Route>
+          <Route path="/">
+            {loggedIn ? <Redirect to="/cards" /> : <Redirect to="/sign-in" />}
+          </Route>
+        </Switch>
         <Header />
         <Main onEditProfile={handleEditProfileClick} 
         onAddPlace={handleAddPlaceClick}
