@@ -1,33 +1,79 @@
-import React from 'react';
-import api from '../utils/api.js';
-import Card from './Card.js';
-import  CurrentUserContext  from '../contexts/CurrentUserContext';
+import React from 'react'
+import Card from './Card'
+import { CurrentUserContext } from '../contexts/CurrentUserContext'
 
+function Main(props) {
+  const {
+    onEditProfile,
+    onAddPlace,
+    onEditAvatar,
+    cards,
+    onCardClick,
+    onCardLike,
+    onCardDelete,
+  } = props
 
-function Main(props){
-    
-    const currentUser = React.useContext(CurrentUserContext);
-    return(
-    <main>
-      <section className="profile">   
-        <div className="profile__items">
-          <img onClick={props.onEditAvatar} className="avatar avatar_overlay" src={currentUser.avatar} alt="аватар" />
-          <div className="profile__item">
-            <div className="profile__title-inline">
-              <h1 className="profile__title">{currentUser.name}</h1>
-              <button onClick={props.onEditProfile} type="button" className="profile__edit-button pointer-opacity" aria-label="кнопка редактированья" />
-            </div>
-            <p className="profile__subtitle">{currentUser.about}</p>   
-          </div>           
+  const [avatarEditIcon, setAvatarEditIcon] = React.useState(false)
+  function showAvatarEditIcon() {
+    setAvatarEditIcon(true)
+  }
+  function hideAvatarEditIcon() {
+    setAvatarEditIcon(false)
+  }
+
+  const currentUser = React.useContext(CurrentUserContext)
+
+  return (
+    <main className="content">
+      <section className="profile">
+        <div
+          className="profile__avatar-container"
+          onClick={onEditAvatar}
+          onMouseEnter={showAvatarEditIcon}
+          onMouseLeave={hideAvatarEditIcon}
+        >
+          <img
+            src={currentUser.avatar}
+            alt="Аватар"
+            className="profile__avatar"
+          />
+          <div
+            className={`profile__avatar-edit-button ${
+              avatarEditIcon ? 'profile__avatar-edit-button_visible' : ''
+            }`}
+          ></div>
         </div>
-        <button onClick={props.onAddPlace} aria-label="добавить" type="button" className="profile__add-button pointer-opacity" />
+        <div className="profile__info-container">
+          <div className="profile__name-container">
+            <h1 className="profile__name">{currentUser.name}</h1>
+            <button
+              type="button"
+              className="profile__edit-button button"
+              onClick={onEditProfile}
+            />
+          </div>
+          <p className="profile__about">{currentUser.about}</p>
+        </div>
+        <button
+          type="button"
+          className="profile__add-button button"
+          onClick={onAddPlace}
+        />
       </section>
       <section className="cards">
-        {props.cards.map((item) => (
-                <Card card={item} key={item._id} onCardClick={props.onCardClick} onCardLike={props.onCardLike} onCardDelete={props.onCardDelete}/>
-            ))}
+        <ul className="cards__list">
+          {cards.map((item) => (
+            <Card
+              card={item}
+              key={item._id}
+              onCardClick={onCardClick}
+              onCardLike={onCardLike}
+              onCardDelete={onCardDelete}
+            />
+          ))}
+        </ul>
       </section>
     </main>
-    );
+  )
 }
-export default Main;
+export default Main

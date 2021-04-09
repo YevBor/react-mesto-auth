@@ -1,22 +1,18 @@
-.profile__add-button{
-        background-image: url(../../../images/add_button1.svg);
-        background-color: transparent;
-        border: none;
-        width: 150px;
-        height: 50px;
-        background-repeat: no-repeat;
-        transition: opacity .25s ease-in-out;
-    }
-    
-@media screen and (max-width: 640px) {
-    .profile__add-button{
-
-        background-image: url(../../../images/add_big-button.svg);
-        margin-top: 36px;
-        width: 282px;
-    }   
+.profile__add-button {
+  align-self: center;
+  margin-left: auto;
+  height: 50px;
+  width: 150px;
+  box-sizing: border-box;
+  border: 2px solid white;
+  border-radius: 2px;
+  background: transparent url(../../../images/PlusIcon.svg) center no-repeat;
 
 }
 
-
-
+@media (max-width: 620px) {
+  .profile__add-button {
+    width: 100%;
+    margin-top: 36px;
+  }
+}
