@@ -66,7 +66,6 @@ function App() {
     open: false,
   })
 
-  //функции управления попапами
   function closeAllPopups() {
     setAvatarPopupState({
       ...avatarPopupState,
@@ -298,7 +297,6 @@ function App() {
     }
   }
 
-  // Функции при загрузке страницы
 
   React.useEffect(() => {
     if (localStorage.getItem('token')) {
